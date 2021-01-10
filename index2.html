@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+      type="text/javascript"
+    ></script>
+
+    <title>Codewars exercise</title>
+  </head>
+
+  <body>
+    <!-- The goal of this exercise is to convert a string to a new string where each character in the new string is "(" if that character appears only once in the original string, or ")" if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+
+Examples
+"din"      =>  "((("
+"recede"   =>  "()()()"
+"Success"  =>  ")())())"
+"(( @"     =>  "))(("  -->
+
+    <script>
+      function duplicateEncode(word) {
+        const onlyOnceCharacter = "(";
+        const moreThanOnceCharacter = ")";
+        const lowerCaseWordArr = word.toLowerCase().split("");
+
+        const str = lowerCaseWordArr
+          .map((e) =>
+            lowerCaseWordArr.filter((el) => el === e).length > 1
+              ? moreThanOnceCharacter
+              : onlyOnceCharacter
+          )
+          .join("");
+
+        return str;
+      }
+
+      function tests(result, correctResult) {
+        return _.isEqual(result, correctResult)
+          ? console.log("correct")
+          : console.log("uncorrect");
+      }
+
+      tests(duplicateEncode("din"), "(((");
+      tests(duplicateEncode("recede"), "()()()");
+      tests(duplicateEncode("Success"), ")())())", "should ignore case");
+      tests(duplicateEncode("(( @"), "))((");
+    </script>
+  </body>
+</html>
