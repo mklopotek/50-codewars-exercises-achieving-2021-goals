@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+      type="text/javascript"
+    ></script>
+
+    <title>Codewars exercise</title>
+  </head>
+
+  <body>
+    <!-- Task
+    Given a list lst and a number N, create a new list that contains each number of lst at most N times without reordering.
+    For example if N = 2, and the input is [1,2,3,1,2,1,2,3], you take [1,2,3,1,2], drop the next [1,2] since this would
+    lead to 1 and 2 being in the result 3 times, and then take 3, which leads to [1,2,3,1,2,3].
+    
+    Example
+    deleteNth ([1,1,1,1],2) // return [1,1]
+    
+    deleteNth ([20,37,20,21],1) // return [20,37,21] -->
+
+    <script>
+      function deleteNth(arr, n) {
+        const result = [];
+        const helperObj = {};
+
+        arr.forEach((number) => {
+          if (helperObj[number]) {
+            if (helperObj[number] < n) {
+              helperObj[number] = helperObj[number] + 1;
+              result.push(number);
+            }
+          } else {
+            helperObj[number] = 1;
+            result.push(number);
+          }
+        });
+        console.log(result);
+        return result;
+      }
+
+      function tests(result, correctResult) {
+        return _.isEqual(result, correctResult)
+          ? console.log("correct")
+          : console.log("uncorrect");
+      }
+
+      tests(deleteNth([20, 37, 20, 21], 1), [20, 37, 21]);
+      tests(deleteNth([1, 1, 3, 3, 7, 2, 2, 2, 2], 3), [
+        1,
+        1,
+        3,
+        3,
+        7,
+        2,
+        2,
+        2,
+      ]);
+    </script>
+  </body>
+</html>
