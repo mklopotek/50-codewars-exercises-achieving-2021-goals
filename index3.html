@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+      type="text/javascript"
+    ></script>
+
+    <title>Codewars exercise</title>
+  </head>
+
+  <body>
+    <!-- There is an array with some numbers. All numbers are equal except for one. Try to find it!
+
+findUniq([ 1, 1, 1, 2, 1, 1 ]) === 2
+findUniq([ 0, 0, 0.55, 0, 0 ]) === 0.55
+It’s guaranteed that array contains at least 3 numbers.
+
+The tests contain some very huge arrays, so think about performance. -->
+
+    <!-- https://www.codewars.com/kata/585d7d5adb20cf33cb000235/train/javascript -->
+
+    <script>
+      function findUniq(arr) {
+        return arr.find((e) => arr.indexOf(e) === arr.lastIndexOf(e));
+      }
+
+      function tests(result, correctResult) {
+        return _.isEqual(result, correctResult)
+          ? console.log("correct")
+          : console.log("uncorrect");
+      }
+
+      tests(findUniq([0, 1, 0]), 1);
+      tests(findUniq([1, 1, 1, 2, 1, 1]), 2);
+      tests(findUniq([3, 10, 3, 3, 3]), 10);
+    </script>
+  </body>
+</html>
