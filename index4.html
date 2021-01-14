@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+      type="text/javascript"
+    ></script>
+
+    <title>Codewars exercise</title>
+  </head>
+
+  <body>
+    <!-- Given three arrays of integers, return the sum of elements that are common in all three arrays.
+
+For example:
+
+common([1,2,3],[5,3,2],[7,3,2]) = 5 because 2 & 3 are common in all 3 arrays
+common([1,2,2,3],[5,3,2,2],[7,3,2,2]) = 7 because 2,2 & 3 are common in the 3 arrays
+
+https://www.codewars.com/kata/5a6225e5d8e145b540000127/train/javascript -->
+
+    <script>
+      function common(a, b, c) {
+        const copyB = [...b];
+        const copyC = [...c];
+
+        return a.reduce((acc, e) => {
+          if (copyB.includes(e) && copyC.includes(e)) {
+            const clearOneB = copyB.indexOf(e);
+            const clearOneC = copyC.indexOf(e);
+            copyB[clearOneB] = 0;
+            copyC[clearOneC] = 0;
+
+            acc = acc + e;
+          }
+
+          return acc;
+        }, 0);
+      }
+
+      function tests(result, correctResult) {
+        return _.isEqual(result, correctResult)
+          ? console.log("correct")
+          : console.log("uncorrect");
+      }
+
+      tests(common([1, 2, 3], [5, 3, 2], [7, 3, 2]), 5);
+      tests(common([1, 2, 2, 3], [5, 3, 2, 2], [7, 3, 2, 2]), 7);
+    </script>
+  </body>
+</html>
