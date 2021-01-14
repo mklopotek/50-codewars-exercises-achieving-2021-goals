@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
+      type="text/javascript"
+    ></script>
+
+    <title>Codewars exercise</title>
+  </head>
+
+  <body>
+    <!-- John has invited some friends. His list is:
+
+s = "Fred:Corwill;Wilfred:Corwill;Barney:Tornbull;Betty:Tornbull;Bjon:Tornbull;Raphael:Corwill;Alfred:Corwill";
+Could you make a program that
+
+makes this string uppercase
+gives it sorted in alphabetical order by last name.
+When the last names are the same, sort them by first name. Last name and first name of a guest come in the result between parentheses separated by a comma.
+
+So the result of function meeting(s) will be:
+
+"(CORWILL, ALFRED)(CORWILL, FRED)(CORWILL, RAPHAEL)(CORWILL, WILFRED)(TORNBULL, BARNEY)(TORNBULL, BETTY)(TORNBULL, BJON)"
+It can happen that in two distinct families with the same family name two people have the same first name too. 
+
+https://www.codewars.com/kata/59df2f8f08c6cec835000012/train/javascript
+-->
+
+    <script>
+      function meeting(s) {
+        const sorted = s
+          .toUpperCase()
+          .split(";")
+          .sort((a, b) => {
+            const aForCompare = a.split(":");
+            const bForCompare = b.split(":");
+
+            const isBigger =
+              aForCompare[1] !== bForCompare[1]
+                ? aForCompare[1] > bForCompare[1]
+                : aForCompare[0] > bForCompare[0];
+
+            return isBigger ? 1 : -1;
+          });
+
+        return (
+          "(" +
+          sorted.map((e) => e.split(":").reverse().join(", ")).join(")(") +
+          ")"
+        );
+      }
+
+      function tests(result, correctResult) {
+        return _.isEqual(result, correctResult)
+          ? console.log("correct")
+          : console.log("uncorrect");
+      }
+
+      tests(
+        meeting(
+          "Alexis:Wahl;John:Bell;Victoria:Schwarz;Abba:Dorny;Grace:Meta;Ann:Arno;Madison:STAN;Alex:Cornwell;Lewis:Kern;Megan:Stan;Alex:Korn"
+        ),
+        "(ARNO, ANN)(BELL, JOHN)(CORNWELL, ALEX)(DORNY, ABBA)(KERN, LEWIS)(KORN, ALEX)(META, GRACE)(SCHWARZ, VICTORIA)(STAN, MADISON)(STAN, MEGAN)(WAHL, ALEXIS)"
+      );
+      tests(
+        meeting(
+          "John:Gates;Michael:Wahl;Megan:Bell;Paul:Dorries;James:Dorny;Lewis:Steve;Alex:Meta;Elizabeth:Russel;Anna:Korn;Ann:Kern;Amber:Cornwell"
+        ),
+        "(BELL, MEGAN)(CORNWELL, AMBER)(DORNY, JAMES)(DORRIES, PAUL)(GATES, JOHN)(KERN, ANN)(KORN, ANNA)(META, ALEX)(RUSSEL, ELIZABETH)(STEVE, LEWIS)(WAHL, MICHAEL)"
+      );
+      tests(
+        meeting(
+          "Alex:Arno;Alissa:Cornwell;Sarah:Bell;Andrew:Dorries;Ann:Kern;Haley:Arno;Paul:Dorny;Madison:Kern"
+        ),
+        "(ARNO, ALEX)(ARNO, HALEY)(BELL, SARAH)(CORNWELL, ALISSA)(DORNY, PAUL)(DORRIES, ANDREW)(KERN, ANN)(KERN, MADISON)"
+      );
+    </script>
+  </body>
+</html>
